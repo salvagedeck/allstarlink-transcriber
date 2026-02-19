@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  allstarlink-transcriber:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: allstarlink-transcriber
+    
+    # Port mappings
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+    
+    # Environment variables
+    environment:
+      # AllStarLink Connection Settings
+      ALLSTARLINK_NODE: ${ALLSTARLINK_NODE:-9001}
+      ALLSTARLINK_HOST: ${ALLSTARLINK_HOST:-localhost}
+      ALLSTARLINK_PORT: ${ALLSTARLINK_PORT:-4569}
+      ALLSTARLINK_USER: ${ALLSTARLINK_USER:-guest}
+      ALLSTARLINK_PASSWORD: ${ALLSTARLINK_PASSWORD:-guest}
+      
+      # Whisper Configuration
+      WHISPER_MODEL: ${WHISPER_MODEL:-small}
+      AUDIO_CHUNK_SECONDS: ${AUDIO_CHUNK_SECONDS:-10}
+      
+      # UI Theme (light, dark, high-contrast)
+      UI_THEME: ${UI_THEME:-dark}
+      
+      # Frontend Path
+      FRONTEND_PATH: /app/frontend/dist
+      
+      # Python settings
+      PYTHONUNBUFFERED: 1
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Resource limits (adjust based on your system)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Network mode (use host for direct AllStarLink access if needed)
+    # network_mode: "host"
+

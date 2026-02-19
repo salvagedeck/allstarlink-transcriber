@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+/* Light Theme (Default) */
+:root,
+[data-theme="light"] {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-primary: #2563eb;
+  --color-secondary: #f3f4f6;
+  --color-accent: #06b6d4;
+  --color-muted: #9ca3af;
+  --color-muted-foreground: #6b7280;
+  --color-border: #e5e7eb;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-background: #0f172a;
+  --color-foreground: #f8fafc;
+  --color-primary: #60a5fa;
+  --color-secondary: #1e293b;
+  --color-accent: #06b6d4;
+  --color-muted: #64748b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #334155;
+}
+
+/* High Contrast Theme */
+[data-theme="high-contrast"] {
+  color-scheme: dark;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-primary: #ffff00;
+  --color-secondary: #1a1a1a;
+  --color-accent: #00ffff;
+  --color-muted: #808080;
+  --color-muted-foreground: #c0c0c0;
+  --color-border: #ffffff;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Custom utilities */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors;
+    @apply bg-primary text-white hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors;
+    @apply bg-secondary text-foreground border border-border hover:border-primary;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors;
+    @apply bg-red-500 text-white hover:bg-red-600;
+  }
+
+  .card {
+    @apply bg-secondary border border-border rounded-lg p-4;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 rounded-lg border border-border;
+    @apply bg-background text-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary;
+  }
+}
