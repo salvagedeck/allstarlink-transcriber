@@ -19,7 +19,7 @@ Real-time audio transcription from AllStarLink 3.0 nodes using OpenAI's Whisper 
 🔧 **Flexible Configuration**
 - Docker-based deployment for easy portability
 - All configuration via environment variables
-- SQLite database for persistent transcript storage
+- In-memory ephemeral transcript storage
 - Support for multiple AllStarLink nodes
 
 📊 **Production Ready**
@@ -47,7 +47,7 @@ Real-time audio transcription from AllStarLink 3.0 nodes using OpenAI's Whisper 
 │  FastAPI Backend         │
 │  ├─ Audio Buffer         │
 │  ├─ Whisper Transcriber  │
-│  ├─ SQLite Database      │
+│  ├─ In-Memory Storage    │
 │  └─ WebSocket Server     │
 └────────┬─────────────────┘
          │ WebSocket + REST API
@@ -149,8 +149,9 @@ All configuration is managed through environment variables in `.env` or `docker-
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `DATABASE_PATH` | `/app/data/transcripts.db` | SQLite database location |
 | `FRONTEND_PATH` | `/app/frontend/dist` | Frontend static files path |
+
+**Note**: Transcripts are stored in-memory (ephemeral). They persist during the current session but are lost when the container restarts. For persistent storage, see DEPLOYMENT.md for adding SQLite.
 
 ## Usage
 
@@ -363,28 +364,6 @@ Edit `frontend/src/index.css` to create new themes:
 ```
 
 Then add to theme selector in `frontend/src/context/ThemeProvider.jsx`.
-
-### Database Management
-
-Access SQLite database:
-```bash
-docker-compose exec allstarlink-transcriber sqlite3 /app/data/transcripts.db
-```
-
-Query transcripts:
-```sql
-SELECT timestamp, text, confidence FROM transcripts 
-ORDER BY timestamp DESC LIMIT 10;
-```
-
-Export transcripts:
-```bash
-docker-compose exec allstarlink-transcriber \
-  sqlite3 /app/data/transcripts.db \
-  ".mode csv" \
-  ".output /tmp/transcripts.csv" \
-  "SELECT * FROM transcripts;"
-```
 
 ## Development
 
