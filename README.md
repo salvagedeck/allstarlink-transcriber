@@ -72,7 +72,7 @@ Real-time audio transcription from AllStarLink 3.0 nodes using OpenAI's Whisper 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/allstarlink-transcriber.git
+   git clone https://github.com/salvagedeck/allstarlink-transcriber.git
    cd allstarlink-transcriber
    ```
 
@@ -403,7 +403,7 @@ MIT License - see LICENSE file for details
 ## Support
 
 For issues, questions, or feature requests:
-- GitHub Issues: [Report a bug](https://github.com/yourusername/allstarlink-transcriber/issues)
+- GitHub Issues: [Report a bug](https://github.com/salvagedeck/allstarlink-transcriber/issues)
 - Email: support@example.com
 
 ## Acknowledgments
